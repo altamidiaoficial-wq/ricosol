@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RICOSOL - Energia Solar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            max-width: 450px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1b4332;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #f9a825;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .status-box {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .status-text {
+            color: #2e7d32;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timer-text {
+            color: #555;
+            font-size: 13px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0 25px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #f9a825;
+            width: 0%;
+            transition: width 1s linear;
+        }
+
+        .btn-whatsapp {
+            display: inline-block;
+            background-color: #25d366;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ea952;
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">RICO<span>SOL</span></div>
+        <p class="tagline">Energia Solar Inteligente</p>
+
+        <div class="status-box">
+            <p class="status-text">Conectando ao especialista...</p>
+            <p class="timer-text">Aguarde <span id="seconds">5</span> segundos para iniciar o atendimento.</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <a id="wpp-link" href="#" class="btn-whatsapp">Ir para o WhatsApp Agora</a>
+
+        <p class="footer-note">RICOSOL &copy; Todos os direitos reservados.</p>
+    </div>
+
+    <script>
+        // Configurações
+        const phone = "5518996064114";
+        const message = encodeURIComponent("Vim pela campanha no google e gostaria de saber mais!");
+        const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+        let totalSeconds = 5; // Tempo de retenção (em segundos)
+        let currentSeconds = totalSeconds;
+
+        // Atualiza o atributo href do botão
+        document.getElementById('wpp-link').href = whatsappUrl;
+
+        // Animação da Barra de Progresso e Timer
+        const secondsSpan = document.getElementById('seconds');
+        const progressFill = document.getElementById('progress');
+
+        const interval = setInterval(() => {
+            currentSeconds--;
+            secondsSpan.textContent = currentSeconds;
+
+            // Atualiza barra de progresso
+            const percentage = ((totalSeconds - currentSeconds) / totalSeconds) * 100;
+            progressFill.style.width = percentage + '%';
+
+            if (currentSeconds <= 0) {
+                clearInterval(interval);
+                // Redirecionamento automático após o tempo
+                window.location.href = whatsappUrl;
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
